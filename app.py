@@ -9,6 +9,10 @@ df["date"] = pd.to_datetime(df["date"],errors="coerce")
 df['year'] = df['date'].dt.year
 df['month'] = df['date'].dt.month
 
+def load_startup_analysis():
+    st.title("Startup Analysis")
+
+
 def load_overall_analysis():
     st.title('Overall Analysis')
 
@@ -74,16 +78,6 @@ def load_overall_analysis():
     ax.bar(city.index, city.values)
     plt.xticks(rotation=90, fontsize=10)
     st.pyplot(fig)
-
-
-
-
-
-
-
-
-
-
 
 def load_investor_details(investor):
     st.title(investor)
@@ -152,7 +146,9 @@ if option == 'Overall Analysis':
 elif option == 'StartUp':
     st.sidebar.selectbox('Select StartUp',sorted(df['startup'].unique().tolist()))
     btn1 = st.sidebar.button('Find StartUp Details')
-    st.title('StartUp Analysis')
+    if btn1:
+        load_startup_analysis()
+
 else:
     selected_investor = st.sidebar.selectbox('Select StartUp',sorted(set(df['investors'].str.split(',').sum())))
     btn2 = st.sidebar.button('Find Investor Details')
